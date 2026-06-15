@@ -6,9 +6,8 @@ import (
 	"os"
 	"sync"
 
-	"echo-framework"
+	vortego "echo-framework"
 
-	"github.com/joho/godotenv"
 	"github.com/spf13/viper"
 )
 
@@ -21,26 +20,7 @@ var (
 // LoadConfig 加载配置
 func LoadConfig() (*Config, error) {
 	once.Do(func() {
-		envFile, eErr := vortego.EnvFile.ReadFile(".env")
-		if eErr != nil {
-			confErr = fmt.Errorf("failed to load .env file: %w", eErr)
-			return
-		}
-
-		// 解析环境变量
-		envMap, err := godotenv.Parse(bytes.NewReader(envFile))
-		if err != nil {
-			confErr = fmt.Errorf("failed to parse .env content: %w", err)
-			return
-		}
-
-		// 将解析后的环境变量设置到系统环境中
-		for k, v := range envMap {
-			if err = os.Setenv(k, v); err != nil {
-				confErr = fmt.Errorf("failed to set environment variable %s: %w", k, err)
-				return
-			}
-		}
+		var err error
 
 		// 配置文件加载路径规则（优先级从高到低）：
 		// 1. 外部配置文件：通过明确指定的完整路径加载（默认项目同级目录下config.yaml）
