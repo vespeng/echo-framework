@@ -1,8 +1,8 @@
 package user
 
 import (
-	"base-framework/internal/infrastructure/db"
-	"base-framework/internal/model"
+	"echo-framework/internal/infrastructure/db"
+	"echo-framework/internal/model"
 
 	"gorm.io/gorm"
 )

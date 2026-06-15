@@ -1,7 +1,7 @@
 package db
 
 import (
-	"base-framework/internal/model"
+	"echo-framework/internal/model"
 
 	"go.uber.org/zap"
 )

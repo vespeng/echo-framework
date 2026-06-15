@@ -3,7 +3,6 @@ package config
 type Config struct {
 	App      AppConfig      `yaml:"app" mapstructure:"app"`
 	Database DatabaseConfig `yaml:"database" mapstructure:"database"`
-	Redis    RedisConfig    `yaml:"redis" mapstructure:"redis"`
 	Log      LogConfig      `yaml:"log" mapstructure:"log"`
 	Jwt      JwtConfig      `yaml:"jwt" mapstructure:"jwt"`
 	Monitor  MonitorConfig  `yaml:"monitor" mapstructure:"monitor"`
@@ -20,13 +19,6 @@ type DatabaseConfig struct {
 	Sync         bool   `yaml:"sync" mapstructure:"sync"`
 	MaxIdleConns int    `yaml:"max_idle_conns" mapstructure:"max_idle_conns"`
 	MaxOpenConns int    `yaml:"max_open_conns" mapstructure:"max_open_conns"`
-}
-
-type RedisConfig struct {
-	Enable   bool   `yaml:"enable" mapstructure:"enable"`
-	Addr     string `yaml:"addr" mapstructure:"addr"`
-	Password string `yaml:"password" mapstructure:"password"`
-	DB       int    `yaml:"db" mapstructure:"db"`
 }
 
 type LogConfig struct {

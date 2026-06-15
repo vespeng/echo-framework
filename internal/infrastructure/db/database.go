@@ -1,7 +1,7 @@
 package db
 
 import (
-	"base-framework/internal/config"
+	"echo-framework/internal/config"
 	"sync"
 
 	"go.uber.org/zap"

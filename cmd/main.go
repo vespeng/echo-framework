@@ -1,7 +1,7 @@
 package main
 
 import (
-	"base-framework/internal/app"
+	"echo-framework/internal/app"
 )
 
 // main 函数执行程序启动流程

@@ -1,7 +1,7 @@
 package user
 
 import (
-	"base-framework/internal/model"
+	"echo-framework/internal/model"
 	"errors"
 )
 

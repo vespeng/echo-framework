@@ -1,12 +1,12 @@
 package app
 
 import (
-	config2 "base-framework/internal/config"
-	"base-framework/internal/infrastructure/db"
-	"base-framework/internal/infrastructure/log"
-	"base-framework/internal/infrastructure/monitor"
-	customMiddleware "base-framework/internal/middleware"
-	"base-framework/internal/module/system"
+	config2 "echo-framework/internal/config"
+	"echo-framework/internal/infrastructure/db"
+	"echo-framework/internal/infrastructure/log"
+	"echo-framework/internal/infrastructure/monitor"
+	customMiddleware "echo-framework/internal/middleware"
+	"echo-framework/internal/module/system"
 
 	"fmt"
 

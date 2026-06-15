@@ -1,7 +1,7 @@
 package system
 
 import (
-	"base-framework/internal/module/system/user"
+	"echo-framework/internal/module/system/user"
 
 	"github.com/labstack/echo/v4"
 )

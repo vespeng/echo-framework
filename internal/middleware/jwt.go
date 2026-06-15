@@ -1,11 +1,8 @@
 package middleware
 
 import (
-	config2 "base-framework/internal/config"
-	"base-framework/internal/infrastructure/redis"
-	"base-framework/pkg/security"
-	"context"
-	"encoding/json"
+	config2 "echo-framework/internal/config"
+	"echo-framework/pkg/security"
 	"errors"
 	"fmt"
 	"strings"
@@ -99,54 +96,11 @@ func GenerateToken(userID int, userName string) (string, error) {
 		return "", err
 	}
 
-	//如果启用redis缓存，则将token存储到redis中
-	if conf.Redis.Enable {
-		redisCli, _ := redis.GetRedis()
-		defer func() {
-			closeErr := redisCli.Close()
-			if closeErr != nil {
-				zap.L().Error("failed to close redis connection: %v", zap.Error(closeErr))
-			}
-		}()
-
-		claimsJSON, mErr := json.Marshal(claims)
-		if mErr != nil {
-			zap.L().Error("failed to marshal claims: %v", zap.Error(mErr))
-			return "", mErr
-		}
-
-		err = redisCli.Set(context.Background(), tokenString, claimsJSON, jwtConf.ExpirationTime).Err()
-		if err != nil {
-			zap.L().Error("failed to set token to redis: %v", zap.Error(err))
-			return "", err
-		}
-	}
 	return tokenString, nil
 }
 
 // validateJWT 验证并解析token
 func validateJWT(tokenString string) (*CustomClaims, error) {
-	conf, _ := config2.LoadConfig()
-
-	// 如果启用redis缓存，则从redis中获取claims
-	if conf.Redis.Enable {
-		redisCli, _ := redis.GetRedis()
-		defer func() {
-			closeErr := redisCli.Close()
-			if closeErr != nil {
-				zap.L().Error("failed to close redis connection: %v", zap.Error(closeErr))
-			}
-		}()
-
-		var claims CustomClaims
-		err := redisCli.Get(context.Background(), tokenString).Scan(&claims)
-		if err != nil {
-			zap.L().Error("failed to get token from redis: %v", zap.Error(err))
-			return nil, err
-		}
-		return &claims, nil
-	}
-
 	token, err := jwt.ParseWithClaims(tokenString, &CustomClaims{}, func(token *jwt.Token) (interface{}, error) {
 		if token.Method != jwtConfig.SigningMethod {
 			return nil, fmt.Errorf("不支持的签名方法: %v", token.Header["alg"])

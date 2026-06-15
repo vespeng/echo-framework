@@ -1,7 +1,7 @@
 package log
 
 import (
-	"base-framework/internal/config"
+	"echo-framework/internal/config"
 	"fmt"
 	"os"
 

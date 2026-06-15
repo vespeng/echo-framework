@@ -1,11 +1,12 @@
 package config
 
 import (
-	"base-framework"
 	"bytes"
 	"fmt"
 	"os"
 	"sync"
+
+	"echo-framework"
 
 	"github.com/joho/godotenv"
 	"github.com/spf13/viper"
@@ -43,9 +44,8 @@ func LoadConfig() (*Config, error) {
 
 		// 配置文件加载路径规则（优先级从高到低）：
 		// 1. 外部配置文件：通过明确指定的完整路径加载（默认项目同级目录下config.yaml）
-		// 2. 内部配置文件：在程序内部根据运行环境（如"config."+env）动态拼接路径。
+		// 2. 内部配置文件：嵌入到程序中的默认配置文件。
 		exConfigFilePath := "../config.yaml"
-		inConfigFilePath := "configs/config"
 
 		viper.SetConfigType("yaml")
 
@@ -57,15 +57,9 @@ func LoadConfig() (*Config, error) {
 				return
 			}
 		} else {
-			env := os.Getenv("APP_ENV")
-			if env == "" {
-				env = "dev"
-			}
-
-			configName := fmt.Sprintf("%s.%s.yaml", inConfigFilePath, env)
-			configFile, cErr := vortego.ConfigFile.ReadFile(configName)
+			configFile, cErr := vortego.ConfigFile.ReadFile("internal/config/config.default.yaml")
 			if cErr != nil {
-				confErr = fmt.Errorf("failed to read embedded config file %s: %w", configName, cErr)
+				confErr = fmt.Errorf("failed to read embedded config file: %w", cErr)
 				return
 			}
 
