@@ -113,13 +113,6 @@ go test ./...
 - `internal/infrastructure/log`：日志初始化与输出配置
 - `internal/module/system/user`：用户管理接口实现
 
-## 后续扩展建议
-
-- 将用户认证改为正式的登录/注册流程
-- 增加 Redis、缓存与权限控制模块
-- 增加 Swagger / OpenAPI 文档支持
-- 按业务域拆分模块目录，如 `order`、`product`、`auth`
-
 ## 许可证
 
 本项目采用 MIT License。

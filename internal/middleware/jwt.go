@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	config2 "echo-framework/internal/config"
+	"echo-framework/internal/config"
 	"echo-framework/pkg/security"
 	"errors"
 	"fmt"
@@ -74,7 +74,7 @@ func Jwt() echo.MiddlewareFunc {
 
 // GenerateToken 生成token
 func GenerateToken(userID int, userName string) (string, error) {
-	conf, _ := config2.LoadConfig()
+	conf, _ := config.LoadConfig()
 	jwtConf, err := loadJwtConfig(conf)
 	if err != nil {
 		return "", err
@@ -151,7 +151,7 @@ func parseBearerToken(header string) (string, error) {
 }
 
 // loadJwtConfig 加载JWT配置
-func loadJwtConfig(conf *config2.Config) (*JWTConfig, error) {
+func loadJwtConfig(conf *config.Config) (*JWTConfig, error) {
 	mutex.Lock()
 	defer mutex.Unlock()
 
