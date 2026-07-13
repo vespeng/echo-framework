@@ -59,14 +59,14 @@ go mod tidy
 go run ./cmd
 ```
 
-默认启动后会监听 `:8080`（如配置文件中已修改则以配置文件为准）。
+默认启动后会监听 `:8000`（如配置文件中已修改则以配置文件为准）。
 
 ### 4. Docker 启动
 
 构建镜像：
 
 ```bash
-docker build -t echo-framework .
+docker build -f docker/Dockerfile -t echo-framework .
 ```
 
 运行容器：
@@ -78,7 +78,7 @@ docker run --rm -p 8000:8000 echo-framework
 也可以使用 `docker-compose`：
 
 ```bash
-docker compose up --build
+docker compose -f docker/docker-compose.yml up --build
 ```
 
 ### 5. 验证项目
